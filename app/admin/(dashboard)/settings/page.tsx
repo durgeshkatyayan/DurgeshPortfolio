@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Loader from "@/components/ui/Loader";
 
 interface SettingsForm {
   siteName: string;
@@ -56,7 +57,13 @@ export default function AdminSettingsPage() {
     }
   };
 
-  if (loading) return <div>Loading settings...</div>;
+  if (loading) {
+  return (
+    <div className="min-h-screen flex items-center justify-center text-white">
+      <Loader />
+    </div>
+  );
+}
 
   return (
     <div className="max-w-3xl">

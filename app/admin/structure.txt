@@ -1,0 +1,51 @@
+Folder PATH listing for volume DURGESH
+Volume serial number is 000000F3 B682:9C71
+D:.
+¦   layout.tsx
+¦   structure.txt
+¦   
++---(Auth)
+¦   +---login
+¦           page.tsx
+¦           
++---(dashboard)
+    ¦   layout.tsx
+    ¦   
+    +---about
+    +---analytics
+    +---blogs
+    ¦   ¦   page.tsx
+    ¦   ¦   
+    ¦   +---new
+    ¦           page.tsx
+    ¦           
+    +---bookings
+    ¦       page.tsx
+    ¦       
+    +---certificates
+    +---contact
+    +---dashboard
+    ¦       page.tsx
+    ¦       
+    +---education
+    +---experience
+    +---gallery
+    +---hero
+    +---meetups
+    +---messages
+    ¦       page.tsx
+    ¦       
+    +---music
+    ¦       route.ts
+    ¦       
+    +---profile
+    +---projects
+    ¦   ¦   page.tsx
+    ¦   ¦   
+    ¦   +---new
+    ¦           page.tsx
+    ¦           
+    +---settings
+    ¦       page.tsx
+    ¦       
+    +---skills

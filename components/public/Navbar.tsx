@@ -1,105 +1,43 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Home, FolderKanban, FileText, Briefcase, Music, Mail, Sparkles } from "lucide-react";
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Projects", href: "/projects" },
-  { name: "Blog", href: "/blog" },
-  { name: "Experience", href: "/experience" },
-  { name: "Music", href: "/music" },
-  { name: "Contact", href: "/contact" },
+  { name: "Home", href: "/", icon: <Home size={18} /> },
+  { name: "Projects", href: "/projects", icon: <FolderKanban size={18} /> },
+  { name: "Experience", href: "/experience", icon: <Briefcase size={18} /> },
+  { name: "Skills", href: "/skills", icon: <Sparkles size={18} /> },
+  { name: "Blog", href: "/blog", icon: <FileText size={18} /> },
+  { name: "Music", href: "/music", icon: <Music size={18} /> },
+  { name: "Contact", href: "/contact", icon: <Mail size={18} /> },
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <>
-      <header
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          scrolled ? "bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800 py-4" : "bg-transparent py-6"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold tracking-tighter text-white">
-            Portfolio<span className="text-blue-500">.</span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`text-sm font-medium transition ${
-                  pathname === link.href ? "text-blue-400" : "text-neutral-300 hover:text-white"
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
+    <nav className="w-full bg-neutral-950/80 backdrop-blur-xl border-b border-neutral-800 p-4 md:px-8">
+      <div className="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2 md:pb-0 hide-scroll-indicator">
+        {navLinks.map((link) => {
+          const isActive = pathname === link.href;
+          return (
             <Link
-              href="/booking"
-              className="px-5 py-2 bg-white text-black text-sm font-bold rounded-full hover:bg-neutral-200 transition"
+              key={link.name}
+              href={link.href}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                isActive 
+                  ? "bg-blue-600/10 text-blue-400 border border-blue-500/20" 
+                  : "text-neutral-400 hover:text-white hover:bg-neutral-900"
+              }`}
             >
-              Book Call
+              {link.icon}
+              {link.name}
             </Link>
-          </nav>
-
-          {/* Mobile Toggle */}
-          <button
-            className="md:hidden text-white p-2"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-neutral-950/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-8"
-          >
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className={`text-2xl font-bold ${
-                  pathname === link.href ? "text-blue-400" : "text-white"
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-            <Link
-              href="/booking"
-              onClick={() => setIsOpen(false)}
-              className="px-8 py-3 bg-blue-600 text-white text-lg font-bold rounded-full"
-            >
-              Book a Call
-            </Link>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+          );
+        })}
+      </div>
+    </nav>
   );
 }

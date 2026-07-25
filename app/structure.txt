@@ -1,0 +1,155 @@
+Folder PATH listing for volume DURGESH
+Volume serial number is 000000A8 B682:9C71
+D:.
+¦   favicon.ico
+¦   globals.css
+¦   layout.tsx
+¦   page.tsx
+¦   robots.ts
+¦   sitemap.ts
+¦   structure.txt
+¦   
++---(public)
+¦   ¦   layout.tsx
+¦   ¦   page.tsx
+¦   ¦   
+¦   +---about
+¦   ¦       page.tsx
+¦   ¦       
+¦   +---blog
+¦   ¦       page.tsx
+¦   ¦       
+¦   +---booking
+¦   ¦       page.tsx
+¦   ¦       
+¦   +---contact
+¦   ¦       page.tsx
+¦   ¦       
+¦   +---experience
+¦   ¦       page.tsx
+¦   ¦       
+¦   +---gallery
+¦   ¦       page.tsx
+¦   ¦       
+¦   +---meetups
+¦   +---music
+¦   ¦       page.tsx
+¦   ¦       
+¦   +---projects
+¦   ¦   ¦   page.tsx
+¦   ¦   ¦   
+¦   ¦   +---[id]
+¦   ¦           page.tsx
+¦   ¦           
+¦   +---skills
+¦           page.tsx
+¦           
++---admin
+¦   ¦   layout.tsx
+¦   ¦   
+¦   +---about
+¦   +---analytics
+¦   +---blogs
+¦   ¦   ¦   page.tsx
+¦   ¦   ¦   
+¦   ¦   +---new
+¦   ¦           page.tsx
+¦   ¦           
+¦   +---bookings
+¦   ¦       page.tsx
+¦   ¦       
+¦   +---certificates
+¦   +---contact
+¦   +---dashboard
+¦   ¦       page.tsx
+¦   ¦       
+¦   +---education
+¦   +---experience
+¦   +---gallery
+¦   +---hero
+¦   +---login
+¦   ¦       page.tsx
+¦   ¦       
+¦   +---meetups
+¦   +---messages
+¦   ¦       page.tsx
+¦   ¦       
+¦   +---music
+¦   ¦       route.ts
+¦   ¦       
+¦   +---profile
+¦   +---projects
+¦   ¦   ¦   page.tsx
+¦   ¦   ¦   
+¦   ¦   +---new
+¦   ¦           page.tsx
+¦   ¦           
+¦   +---settings
+¦   ¦       page.tsx
+¦   ¦       
+¦   +---skills
++---api
+    +---about
+    ¦       route.ts
+    ¦       
+    +---analytics
+    ¦       route.ts
+    ¦       
+    +---auth
+    ¦   +---[...nextauth]
+    ¦           route.ts
+    ¦           
+    +---blogs
+    ¦   ¦   route.ts
+    ¦   ¦   
+    ¦   +---[id]
+    ¦           route.ts
+    ¦           
+    +---bookings
+    ¦       route.ts
+    ¦       
+    +---certificates
+    ¦       route.ts
+    ¦       
+    +---education
+    ¦       route.ts
+    ¦       
+    +---experience
+    ¦       route.ts
+    ¦       
+    +---gallery
+    ¦       route.ts
+    ¦       
+    +---hero
+    ¦       route.ts
+    ¦       
+    +---meetups
+    ¦       route.ts
+    ¦       
+    +---messages
+    ¦       route.ts
+    ¦       
+    +---music
+    ¦       route.ts
+    ¦       
+    +---projects
+    ¦   ¦   route.ts
+    ¦   ¦   
+    ¦   +---[id]
+    ¦           route.ts
+    ¦           
+    +---settings
+    ¦       route.ts
+    ¦       
+    +---skills
+    ¦       route.ts
+    ¦       
+    +---statistics
+    ¦       route.ts
+    ¦       
+    +---testimonials
+    ¦       route.ts
+    ¦       
+    +---upload
+            route.ts
+            

@@ -20,9 +20,9 @@
     "lucide-react": "^1.25.0",
     "mongoose": "^8.24.1",
     "motion": "^12.42.2",
-    "next": "16.2.10",
+    "next": "^16.2.12",
     "next-auth": "^4.24.14",
-    "nodemailer": "^9.0.3",
+    "nodemailer": "^7.0.13",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.82.0",
@@ -39,8 +39,13 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.10",
+    "eslint-config-next": "^16.2.12",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "allowScripts": {
+    "@tsparticles/engine@4.3.2": true,
+    "sharp@0.34.5": true,
+    "unrs-resolver@1.12.2": true
   }
 }

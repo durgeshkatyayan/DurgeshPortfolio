@@ -7,25 +7,27 @@ export default function Typewriter({ words }: { words: string[] }) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (!words || words.length === 0) return;
+    if (!words?.length) return;
+
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
-    }, 3000); // Change word every 3 seconds
+    }, 3000);
+
     return () => clearInterval(interval);
   }, [words]);
 
-  if (!words || words.length === 0) return null;
+  if (!words?.length) return null;
 
   return (
-    <div className="h-8 relative overflow-hidden flex items-center">
+    <div className="relative flex items-center justify-center min-h-[24px]">
       <AnimatePresence mode="wait">
         <motion.span
           key={words[index]}
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -20, opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="text-blue-400 font-semibold absolute"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.4 }}
+          className="text-blue-400 font-semibold"
         >
           {words[index]}
         </motion.span>

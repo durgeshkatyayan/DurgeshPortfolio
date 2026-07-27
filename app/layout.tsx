@@ -2,8 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Durgesh Portfolio",
-  description: "Full Stack Developer Portfolio",
+  title: "Durgesh Katyayan - Full Stack Developer ",
+  description: "Full Stack Developer | React.js | Next.js | Node.js | Express | MongoDB | SQL | JavaScript | TypeScript | HTML | CSS",
    icons: {
     icon: "./logo.jpeg",
     shortcut: "./logo.jpeg",

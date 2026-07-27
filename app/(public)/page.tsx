@@ -1,12 +1,17 @@
+
 import { connectToDatabase } from "@/lib/mongodb";
 import Profile, { IProfile } from "@/models/Profile";
 import About from "@/models/About";
 import Statistic from "@/models/Statistic";
 import Education from "@/models/Education";
 import Link from "next/link";
-import { Download, User, GraduationCap } from "lucide-react";
+import { Download, User, GraduationCap, Activity, ExternalLink, Flame, MapPin } from "lucide-react";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import CodingAnalytics from "@/components/public/CodingActivity";
+import { FaGithub } from "react-icons/fa";
+import Image from "next/image";
+import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 export const revalidate = 3600;
 
 interface IAboutData {
@@ -22,9 +27,12 @@ interface IEducation {
   degree: string;
   college: string;
   university?: string;
+  location?: string;      // Added
+  logo?: string;          // Added
   year: string;
   grade?: string;
   description?: string;
+  achievements?: string;  // Added
   order: number;
 }
 
@@ -64,7 +72,7 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="space-y-12 pb-20">
+    <div className="space-y-8 pb-20">
       <section className="">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 border border-neutral-800 text-sm text-neutral-300 mb-6 shadow-sm">
           <User size={16} className="text-blue-500" />
@@ -84,9 +92,9 @@ export default async function HomePage() {
 
         {about ? (
           <div className="space-y-6">
-            <div className="text-md text-neutral-400 max-w-3xl leading-6 space-y-3">
-              <p>{about.description}</p>
-              <p>{about.biography}</p>
+            <div className="text-md text-neutral-400  max-w-3xl leading-6 space-y-3">
+              <p className=" text-justify">{about.description}</p>
+              <p className="text-sm text-justify">{about.biography}</p>
             </div>
 
             {/* Languages & Interests Tags */}
@@ -158,53 +166,94 @@ export default async function HomePage() {
       {/* 3. EDUCATION SECTION */}
       {educations && educations.length > 0 && (
         <section>
-          <div className="flex items-center gap-3 mb-10">
-            <GraduationCap className="text-emerald-500" size={28} />
-            <h2 className="text-3xl font-bold">Education & Background</h2>
+          <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center justify-center p-2 rounded-2xl bg-neutral-900 border border-neutral-800  shadow-inner">
+              <GraduationCap className="text-black-500" size={22} />
+            </div>
+            <h2 className="text-2xl f text-white tracking-tight">Education</h2>
           </div>
 
-          <div className="relative border-l border-neutral-800 ml-3 md:ml-4 pl-6 md:pl-10 space-y-8">
+          <div className="relative border-l border-neutral-800 ml-6 md:ml-8 pl-8 md:pl-12 space-y-10">
+
             {educations.map((edu) => (
               <div key={edu._id.toString()} className="relative group">
 
-                {/* Timeline Dot */}
-                <span className="absolute -left-[31px] md:-left-[47px] top-1.5 w-4 h-4 rounded-full bg-neutral-950 border-2 border-neutral-600 group-hover:border-emerald-500 transition-colors duration-300" />
+                
+                <div className="absolute -left-[41px] md:-left-[57px] top-1.5 flex items-center justify-center">
+                  <span className="w-4 h-4 rounded-full bg-neutral-950 border-2 border-neutral-600 group-hover:border-emerald-500 transition-colors duration-500 relative z-10" />
+                  <span className="absolute w-4 h-4 rounded-full bg-emerald-500/0 group-hover:bg-emerald-500/40 blur-md transition-all duration-500" />
+                </div>
 
-                <div className="bg-neutral-900/40 backdrop-blur-sm border border-neutral-800/60 p-6 sm:p-8 rounded-2xl hover:bg-neutral-900/80 transition duration-300 shadow-sm hover:shadow-md">
+                <div className="relative overflow-hidden bg-gradient-to-br from-neutral-900/50 to-neutral-900/10 backdrop-blur-md border border-neutral-800/60 p-6 sm:p-8 rounded-[24px] hover:bg-neutral-900/80 transition-all duration-500 shadow-sm group-hover:shadow-[0_0_30px_rgba(16,185,129,0.05)] group-hover:border-neutral-700">
+                  <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-emerald-500/0 to-transparent group-hover:via-emerald-500/50 transition-all duration-700" />
+                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-6">
+                    <BackgroundRippleEffect />
+                    <div className="flex items-start gap-5">
+                      {edu.logo && (
+                        <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden bg-white border border-neutral-200 dark:border-neutral-700/50 shrink-0 shadow-inner">
+                          <Image src={edu.logo} alt={edu.college} fill className="object-contain p-2" />
+                        </div>
+                      )}
 
-                  {/* Year Badge */}
-                  <span className="inline-block px-3 py-1 bg-neutral-950 border border-neutral-800 text-emerald-400 text-xs font-bold tracking-widest uppercase rounded-lg mb-4">
-                    {edu.year}
-                  </span>
+                      <div className="pt-1">
+                        <h3 className="text-xl md:text-1.5xl font-bold text-white  group-hover:text-emerald-400 transition-colors duration-300">
+                          {edu.degree}
+                        </h3>
 
-                  {/* Degree & Institution */}
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
-                    {edu.degree}
-                  </h3>
+                        <div className="flex flex-wrap items-center gap-2 text-sm md:text-sm font-medium">
+                          <span className="">{edu.college}</span>
+                          {edu.university && (
+                            <>
+                              <span className="text-neutral-700 hidden sm:inline">•</span>
+                              <span className="text-neutral-300">{edu.university}</span>
+                            </>
+                          )}
+                        </div>
 
-                  <div className="text-neutral-300 font-medium mb-3 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                    <span className="text-blue-400">{edu.college}</span>
-                    {edu.university && (
-                      <>
-                        <span className="hidden sm:inline text-neutral-600">•</span>
-                        <span className="text-neutral-400">{edu.university}</span>
-                      </>
-                    )}
+                        {edu.location && (
+                          <div className="flex items-center gap-1.5 text-neutral-500 text-sm mt-.5">
+                            <MapPin size={14} className="text-neutral-600" />
+                            <span>{edu.location}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="shrink-0 mt-1 md:mt-0">
+                      <span className="inline-flex items-center border-neutral-800/80  bg-neutral-950/60 justify-center px-4 py-1.5  text-[11px] font-bold tracking-widest uppercase rounded-full shadow-sm">
+                        {edu.year}
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Grade */}
-                  {edu.grade && (
-                    <div className="inline-block px-3 py-1 bg-neutral-800/50 rounded-md text-sm text-neutral-300 mb-4">
-                      Grade: <span className="font-semibold text-white">{edu.grade}</span>
-                    </div>
-                  )}
+                  <hr className="border-neutral-800/80 mb-6" />
+                  <div className="space-y-5">
 
-                  {/* Description */}
-                  {edu.description && (
-                    <p className="text-neutral-400 text-sm leading-relaxed max-w-3xl">
-                      {edu.description}
-                    </p>
-                  )}
+                    {edu.grade && (
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-neutral-950/60 border border-neutral-800/80 rounded-xl text-sm text-neutral-400 shadow-inner">
+                        <span className="text-neutral-500 font-medium tracking-wide">Grade:</span>
+                        <span className="font-bold text-white">{edu.grade}</span>
+                      </div>
+                    )}
+
+                    {edu.description && (
+                      <p className="text-neutral-400 text-sm md:text-base leading-relaxed max-w-4xl">
+                        {edu.description}
+                      </p>
+                    )}
+
+                    {/* Achievements Section */}
+                    {edu.achievements && (
+                      <div className="p-4 sm:p-5 bg-neutral-950/40 rounded-2xl border border-neutral-800/50 mt-4">
+                        <span className="block text-[11px] font-bold text-neutral-500 uppercase tracking-widest mb-2">
+                          Key Achievements
+                        </span>
+                        <p className="text-sm md:text-base text-neutral-300 leading-relaxed">
+                          {edu.achievements}
+                        </p>
+                      </div>
+                    )}
+                  </div>
 
                 </div>
               </div>
@@ -212,6 +261,59 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      <section className="py-4">
+        <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-900 border border-neutral-800">
+              <FaGithub className="h-6 w-6 text-white" />
+            </div>
+
+            <div>
+              <h2 className="flex items-center gap-2 text-2xl font-bold">
+                GitHub Streak
+                <Flame className="h-6 w-6 text-orange-500 animate-pulse" />
+              </h2>
+            </div>
+          </div>
+
+          <a
+            href="https://github.com/durgeshkatyayan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-2 text-sm transition hover:border-purple-500 hover:bg-neutral-800"
+          >
+            <FaGithub className="h-4 w-4" />
+            View Profile
+            <ExternalLink className="h-4 w-4" />
+          </a>
+        </div>
+        <div className=" flex items-center justify-center ">
+          <img
+            src="https://github-readme-streak-stats.herokuapp.com/?user=durgeshkatyayan&theme=radical"
+            alt="GitHub Streak Stats"
+            className=" w-fit h-auto rounded-md"
+          />
+        </div>
+      </section>
+
+      <section>
+        <div className="flex items-center gap-3 mb-5">
+          <Activity className="text-purple-500" size={28} />
+          <h2 className="text-2xl font-bold">Coding Activity</h2>
+        </div>
+
+        <div className="w-full bg-neutral-900/40 backdrop-blur-sm border border-neutral-800/60 p-4 sm:p-8 rounded-3xl hover:bg-neutral-900/80 transition duration-300 shadow-sm overflow-hidden">
+          <div className="w-full overflow-x-auto">
+            <embed
+              src="https://wakatime.com/share/@kaniskkatyayan/07651865-2599-42e4-8c41-b25ab8d8e8f1.svg"
+              type="image/svg+xml"
+            // className="w-full min-w-[700px] h-[420px]"
+            />
+          </div>
+        </div>
+      </section>
+      <CodingAnalytics />
 
     </div>
   );

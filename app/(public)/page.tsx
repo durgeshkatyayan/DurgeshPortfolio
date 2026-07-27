@@ -223,7 +223,7 @@ export default async function HomePage() {
                       <span className="inline-flex items-center border-neutral-800/80  bg-neutral-950/60 justify-center px-4 py-1.5  text-[11px] font-bold tracking-widest uppercase rounded-full shadow-sm">
                         {edu.year}
                       </span>
-                    </div>ghgh
+                    </div>
                   </div>
 
                   <hr className="border-neutral-800/80 mb-6" />

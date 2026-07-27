@@ -12,6 +12,7 @@ import CodingAnalytics from "@/components/public/CodingActivity";
 import { FaGithub } from "react-icons/fa";
 import Image from "next/image";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 export const revalidate = 3600;
 
 interface IAboutData {
@@ -93,7 +94,8 @@ export default async function HomePage() {
         {about ? (
           <div className="space-y-6">
             <div className="text-md text-neutral-400  max-w-3xl leading-6 space-y-3">
-              <p className=" text-justify">{about.description}</p>
+              {/* <p className=" text-justify">{about.description}</p> */}
+              <TextGenerateEffect words={about.description} />
               <p className="text-sm text-justify">{about.biography}</p>
             </div>
 

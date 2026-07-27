@@ -32,21 +32,21 @@ export default async function ProjectDetailsPage({ params }: Props) {
   }
 
   return (
-    <main className="min-h-screen py-24 px-6 max-w-5xl mx-auto">
-      <div className="mb-8">
-        <span className="text-blue-400 font-semibold uppercase tracking-wider text-sm">
+    <main className="min-h-screen py-2 px-6 max-w-5xl mx-auto">
+      <div className="mb-4">
+        <h1 className="text-4xl font-bold  ">{project.title}</h1>
+        <span className="text-blue-400  text-sm">
           {project.category}
         </span>
-        <h1 className="text-5xl font-bold mt-2 mb-6">{project.title}</h1>
         
-        <div className="flex flex-wrap gap-4 mb-8">
+        <div className="flex flex-wrap gap-4 mt-4 mb-2">
           {project.githubUrl && (
-            <a href={project.githubUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-neutral-900 border border-neutral-800 rounded-lg hover:bg-neutral-800 transition">
+            <a href={project.githubUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-3 py-1.5 bg-neutral-900 border border-neutral-800 rounded-lg hover:bg-neutral-800 transition">
               <FaGithub className="h-5 w-5" /> View Source
             </a>
           )}
           {project.liveUrl && (
-            <a href={project.liveUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            <a href={project.liveUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
               <ExternalLink size={18} /> Live Preview
             </a>
           )}

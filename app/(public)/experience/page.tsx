@@ -1,13 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { motion } from "framer-motion";
-import { Briefcase } from "lucide-react";
+import Image from "next/image";
+import Loader from "@/components/ui/Loader";
+import {
+  useScroll,
+  useTransform,
+  motion,
+} from "motion/react";
 
+// Match your API Data Interface
 interface Experience {
   _id: string;
   company: string;
+  logo?: string;
   position: string;
   description: string;
   technologies: string[];
@@ -16,73 +23,184 @@ interface Experience {
   isCurrent: boolean;
 }
 
-export default function ExperienceTimeline() {
+export default function ExperiencePage() {
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isContainerReady, setIsContainerReady] = useState(false);
 
+  // Refs for the timeline scroll animation
+  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
+
+  // Fetch Data from your Backend
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
         const { data } = await axios.get("/api/experience");
-        setExperiences(data);
+
+        // Sort descending by startDate (newest first)
+        const sortedData = data.sort((a: Experience, b: Experience) =>
+          new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
+        );
+
+        setExperiences(sortedData);
       } catch (error) {
         console.error("Failed to load experiences", error);
       } finally {
         setLoading(false);
       }
     };
+
     fetchExperiences();
   }, []);
 
+  // Check if container is ready after loading completes
+  useEffect(() => {
+    if (!loading && containerRef.current) {
+      setIsContainerReady(true);
+    }
+  }, [loading]);
+
+  // Calculate height for the timeline line
+  useEffect(() => {
+    if (!ref.current) return;
+    
+    const updateHeight = () => {
+      setHeight(ref.current?.getBoundingClientRect().height || 0);
+    };
+    
+    updateHeight(); // Initial calculation
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(ref.current);
+    
+    return () => observer.disconnect();
+  }, [experiences]);
+
+  // Scroll Animation Logic - now conditionally uses the ref
+  const { scrollYProgress } = useScroll({
+    target: isContainerReady ? containerRef : undefined,
+    offset: ["start 10%", "end 50%"],
+  });
+
+  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+
+  // Show Loader while fetching
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center text-white">Loading timeline...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-neutral-950">
+        <Loader />
+      </div>
+    );
   }
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-white py-24 px-6 max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-16 text-center tracking-tight">Professional Journey</h1>
+    <div className="w-full bg-white dark:bg-neutral-950 font-sans" ref={containerRef}>
+      {/* Header Section */}
+      <div className="max-w-7xl mx-auto py-3">
+        <h2 className="text-lg md:text-3xl mb-4 text-black dark:text-white max-w-4xl">
+          My Work Experience
+        </h2>
+        <div className="w-[10rem] -top-4 left-18 relative">
+          <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
+          <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
+        </div>
+        <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-sm">
+          Here&apos;s a timeline of my professional journey.
+        </p>
+      </div>
 
-      <div className="relative border-l border-neutral-800 ml-4 md:ml-0 md:mx-auto md:w-full">
+      {/* Timeline Container */}
+      <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
+        {/* Mapping through experiences */}
         {experiences.map((exp, index) => {
+          const startYear = new Date(exp.startDate).getFullYear().toString();
           const dateOptions: Intl.DateTimeFormatOptions = { month: "short", year: "numeric" };
-          const start = new Date(exp.startDate).toLocaleDateString("en-US", dateOptions);
-          const end = exp.isCurrent ? "Present" : exp.endDate ? new Date(exp.endDate).toLocaleDateString("en-US", dateOptions) : "";
+          const startMonth = new Date(exp.startDate).toLocaleDateString("en-US", dateOptions);
+          const endMonth = exp.isCurrent
+            ? "Present"
+            : exp.endDate
+              ? new Date(exp.endDate).toLocaleDateString("en-US", dateOptions)
+              : "";
 
           return (
-            <motion.div
-              key={exp._id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="mb-12 ml-10 md:ml-0 md:flex md:items-center md:justify-between w-full"
-            >
-              {/* Timeline Dot */}
-              <div className="absolute -left-3 md:left-1/2 md:-translate-x-1/2 bg-blue-600 w-6 h-6 rounded-full border-4 border-neutral-950 flex items-center justify-center">
-                <Briefcase size={10} className="text-white" />
+            <div key={index} className="flex justify-start pt-10 md:pt-40 md:gap-10">
+              {/* Left Sticky Column (Year, Circle & Company Logo) */}
+              <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
+                {/* The Circle */}
+                <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white dark:bg-black flex items-center justify-center">
+                  <div className="h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 p-2" />
+                </div>
+                
+                {/* The Year */}
+                <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-neutral-500 dark:text-neutral-500">
+                  {startYear}
+                </h3>
+
+                {/* Company Logo */}
+                {exp.logo && (
+                  <div className="hidden md:block absolute md:left-[180px] lg:left-[240px] w-12 h-12 rounded-full overflow-hidden bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm">
+                    <Image
+                      src={exp.logo}
+                      alt={`${exp.company} logo`}
+                      fill
+                      className="object-contain p-1"
+                    />
+                  </div>
+                )}
               </div>
 
-              {/* Content Card */}
-              <div className={`md:w-5/12 ${index % 2 === 0 ? 'md:pr-12 md:text-right md:ml-auto' : 'md:pl-12'}`}>
-                <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-xl hover:border-neutral-700 transition">
-                  <span className="text-blue-400 font-semibold text-sm block mb-2">{start} - {end}</span>
-                  <h3 className="text-xl font-bold">{exp.position}</h3>
-                  <h4 className="text-lg text-neutral-400 mb-4">{exp.company}</h4>
-                  <p className="text-sm text-neutral-300 mb-4 leading-relaxed">{exp.description}</p>
-                  
-                  <div className={`flex flex-wrap gap-2 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
-                    {exp.technologies.map((tech) => (
-                      <span key={tech} className="text-xs bg-neutral-800 text-neutral-300 px-2 py-1 rounded">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+              {/* Right Content Column */}
+              <div className="relative pl-20 pr-4 md:pl-4 w-full">
+                <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500 dark:text-neutral-500">
+                  {startYear}
+                </h3>
+                
+                {/* Actual Experience Details */}
+                <div>
+                  <h4 className="text-xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-2 tracking-tight">
+                    {exp.position}
+                  </h4>
+                  <p className="text-sm md:text-base font-medium text-blue-600 dark:text-blue-500 mb-8">
+                    {exp.company} <span className="text-neutral-400 mx-2">•</span> {startMonth} — {endMonth}
+                  </p>
+
+                  <p className="mb-8 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200 leading-relaxed whitespace-pre-line">
+                    {exp.description}
+                  </p>
+
+                  {exp.technologies && exp.technologies.length > 0 && (
+                    <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {exp.technologies.map((tech, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-xs text-neutral-700 md:text-sm dark:text-neutral-300">
+                          <span className="text-emerald-500 dark:text-emerald-400">✓</span> {tech}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
-            </motion.div>
+            </div>
           );
         })}
+
+        {/* The Scroll Progress Line */}
+        {height > 0 && containerRef.current && (
+          <div
+            style={{ height: height + "px" }}
+            className="absolute md:left-3 left-3 top-0 z-50 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 dark:via-neutral-700 via-[10%] via-[90%] to-transparent to-[100%]"
+          >
+            <motion.div
+              style={{
+                height: heightTransform,
+                opacity: opacityTransform,
+              }}
+              className="absolute inset-x-0 top-0 z-50 w-[2px] bg-gradient-to-t from-purple-500 via-blue-500 to-transparent from-[0%] via-[10%] rounded-full"
+            />
+          </div>
+        )}
       </div>
-    </main>
+    </div>
   );
 }

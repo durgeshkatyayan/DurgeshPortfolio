@@ -11,7 +11,8 @@ import {
   GraduationCap,
   Award,
   Music,
-  Settings as SettingsIcon
+  Settings as SettingsIcon,
+  BriefcaseBusiness
 } from "lucide-react";
 import LogoutButton from "@/components/admin/LogoutButton";
 import { connectToDatabase } from "@/lib/mongodb";
@@ -71,6 +72,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <Link href="/admin/education" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition">
             <GraduationCap size={20} /> Education
           </Link>
+         <Link
+  href="/admin/experience"
+  className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition"
+>
+  <BriefcaseBusiness size={20} />
+  Experience
+</Link>
           <Link href="/admin/certificates" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition">
             <Award size={20} /> Certificates
           </Link>

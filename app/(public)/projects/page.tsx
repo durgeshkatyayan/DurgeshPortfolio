@@ -28,7 +28,7 @@ export default function ProjectsPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
-  const categories = ["All", "Frontend", "Backend", "Full Stack", "Mobile"];
+  const categories = ["All", "Frontend", "API/Backend","Full Stack Development", "Mobile"];
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -77,7 +77,7 @@ export default function ProjectsPage() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition ${activeCategory === cat ? "bg-blue-600 text-white" : "bg-neutral-900 text-neutral-400 hover:bg-neutral-800"
+              className={`px-3 py-1.5 rounded-full text-sm font-medium transition ${activeCategory === cat ? "bg-blue-600 text-white" : "bg-neutral-900 text-neutral-400 hover:bg-neutral-800"
                 }`}
             >
               {cat}
@@ -92,7 +92,7 @@ export default function ProjectsPage() {
             placeholder="Search projects..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 rounded-full bg-neutral-900 border border-neutral-800 focus:border-blue-500 outline-none transition"
+            className="w-full pl-12 pr-4 py-2 rounded-full bg-neutral-900 border border-neutral-800 focus:border-blue-500 outline-none transition"
           />
         </div>
       </div>
@@ -110,8 +110,8 @@ export default function ProjectsPage() {
         ) : (
           <AnimatePresence>
             <PinContainer
-              title="/ui.aceternity.com"
-              href="https://twitter.com/mannupaaji"
+              title="NovaSphare"
+              href="https://umca.knsk.me"
             >
               {filteredProjects.map((project, idx) => (
                 <motion.div
@@ -121,7 +121,7 @@ export default function ProjectsPage() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
-                  className="group flex flex-col bg-neutral-900/40 backdrop-blur-sm rounded-3xl border border-neutral-800/60 overflow-hidden hover:bg-neutral-900/80 hover:border-neutral-500 transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2"
+                  className="group flex flex-col w-64 shadow-md shadow- bg-neutral-900/40 backdrop-blur-sm rounded-3xl border border-neutral-800/60 overflow-hidden hover:bg-neutral-900/80 hover:border-neutral-500 transition-all duration-500  hover:shadow-2xl hover:-translate-y-2"
                 >
                   {/* Image Header (Clickable) */}
                   <Link href={`/projects/${project._id}`} className="relative aspect-video w-full overflow-hidden block bg-neutral-950 shrink-0 p-.5">
@@ -203,7 +203,7 @@ export default function ProjectsPage() {
                   </div>
                 </motion.div>
               ))}
-         </PinContainer>
+            </PinContainer>
           </AnimatePresence>
         )}
       </div>

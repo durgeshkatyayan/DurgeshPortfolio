@@ -30,7 +30,7 @@ export default function PublicLayout({
             <Navbar />
           </div>
 
-          <main className="grow px-6 lg:px-12 py-5">
+          <main className="grow px-1 md:px-6 lg:px-12  py-3 md:py-5">
             <PageTransition>
               {children}
             </PageTransition>

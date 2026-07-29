@@ -28,3 +28,29 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Failed to submit message" }, { status: 500 });
   }
 }
+// Get All Messages
+export async function GET() {
+  try {
+    await connectToDatabase();
+
+    const messages = await Message.find({})
+      .sort({ createdAt: -1 })
+      .lean();
+
+    return NextResponse.json(
+      {
+        success: true,
+        count: messages.length,
+        data: messages,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { error: "Failed to fetch messages" },
+      { status: 500 }
+    );
+  }
+}

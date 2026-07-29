@@ -12,7 +12,8 @@ import {
   Award,
   Music,
   Settings as SettingsIcon,
-  BriefcaseBusiness
+  BriefcaseBusiness,
+  MessageSquare
 } from "lucide-react";
 import LogoutButton from "@/components/admin/LogoutButton";
 import { connectToDatabase } from "@/lib/mongodb";
@@ -59,8 +60,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           </h2>
         </div>
 
-        <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto custom-scrollbar">
-          <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition">
+        <nav className="flex-1 px-4 py-2 space-y-1 overflow-y-auto custom-scrollbar">
+          <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition">
             <LayoutDashboard size={20} /> Dashboard
           </Link>
           <Link href="/admin/profile" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition">
@@ -72,13 +73,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <Link href="/admin/education" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition">
             <GraduationCap size={20} /> Education
           </Link>
-         <Link
-  href="/admin/experience"
-  className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition"
->
-  <BriefcaseBusiness size={20} />
-  Experience
-</Link>
+          <Link
+            href="/admin/experience"
+            className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition"
+          >
+            <BriefcaseBusiness size={20} />
+            Experience
+          </Link>
           <Link href="/admin/certificates" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition">
             <Award size={20} /> Certificates
           </Link>
@@ -87,6 +88,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           </Link>
           <Link href="/admin/projects" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition">
             <FolderKanban size={20} /> Projects
+          </Link>
+          <Link
+            href="/admin/messages"
+            className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition"
+          >
+            <MessageSquare size={20} />
+            Contact Messages
           </Link>
           <Link href="/admin/blogs" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition">
             <FileText size={20} /> Blogs

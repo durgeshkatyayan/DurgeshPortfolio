@@ -53,14 +53,14 @@ export default function Navbar() {
             })}
           </div>
 
-          <div className="hidden lg:flex items-center gap-4">
+          {/* <div className="hidden lg:flex items-center gap-4">
             <NavbarButton
               href="/contact"
               variant="primary"
             >
-              Hire Me
+              Contact
             </NavbarButton>
-          </div>
+          </div> */}
         </NavBody>
 
         <MobileNav>

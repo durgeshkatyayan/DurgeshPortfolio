@@ -5,9 +5,9 @@ export const metadata: Metadata = {
   title: "Durgesh Katyayan - Full Stack Developer ",
   description: "Full Stack Developer | React.js | Next.js | Node.js | Express | MongoDB | SQL | JavaScript | TypeScript | HTML | CSS",
    icons: {
-    icon: "./logo.jpeg",
-    shortcut: "./logo.jpeg",
-    apple: "./logo.jpeg",
+    icon: "../public/logo.jpeg",
+    shortcut: "../public/logo.jpeg",
+    apple: "../public/logo.jpeg",
   },
 };
 

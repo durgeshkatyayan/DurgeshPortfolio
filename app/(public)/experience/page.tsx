@@ -99,21 +99,19 @@ export default function ExperiencePage() {
     <div className="w-full bg-white dark:bg-neutral-950 font-sans" ref={containerRef}>
       {/* Header Section */}
       <div className="max-w-7xl mx-auto py-3">
-        <h2 className="text-lg md:text-3xl mb-4 text-black dark:text-white max-w-4xl">
+        <h2 className="text-lg md:text-3xl  text-black dark:text-white ps-2 md:ps-0 max-w-4xl">
           My Work Experience
         </h2>
-        <div className="w-[10rem] -top-4 left-18 relative">
+        <div className="w-[10rem] -top-1 md:left-18 relative">
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
         </div>
-        <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-sm">
+        <p className="text-neutral-700 dark:text-neutral-300 ps-2 md:ps-0 text-sm md:text-base max-w-sm">
           Here&apos;s a timeline of my professional journey.
         </p>
       </div>
 
-      {/* Timeline Container */}
       <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
-        {/* Mapping through experiences */}
         {experiences.map((exp, index) => {
           const startYear = new Date(exp.startDate).getFullYear().toString();
           const dateOptions: Intl.DateTimeFormatOptions = { month: "short", year: "numeric" };
@@ -125,7 +123,7 @@ export default function ExperiencePage() {
               : "";
 
           return (
-            <div key={index} className="flex justify-start pt-10 md:pt-40 md:gap-10">
+            <div key={index} className="flex justify-start pt-10 md:pt-20 md:gap-10">
               {/* Left Sticky Column (Year, Circle & Company Logo) */}
               <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
                 {/* The Circle */}
@@ -140,12 +138,12 @@ export default function ExperiencePage() {
 
                 {/* Company Logo */}
                 {exp.logo && (
-                  <div className="hidden md:block absolute md:left-[180px] lg:left-[240px] w-12 h-12 rounded-full overflow-hidden bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm">
+                  <div className="hidden md:block absolute md:left-[120px] lg:left-[200px] w-12 h-12 rounded-full overflow-hidden bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm">
                     <Image
                       src={exp.logo}
                       alt={`${exp.company} logo`}
                       fill
-                      className="object-contain p-1"
+                      className="object-contain"
                     />
                   </div>
                 )}
@@ -162,16 +160,16 @@ export default function ExperiencePage() {
                   <h4 className="text-xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-2 tracking-tight">
                     {exp.position}
                   </h4>
-                  <p className="text-sm md:text-base font-medium text-blue-600 dark:text-blue-500 mb-8">
+                  <p className="text-sm md:text-base font-medium text-blue-600 dark:text-blue-500 mb-4">
                     {exp.company} <span className="text-neutral-400 mx-2">•</span> {startMonth} — {endMonth}
                   </p>
 
-                  <p className="mb-8 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200 leading-relaxed whitespace-pre-line">
+                  <p className="mb-4 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200 leading-relaxed whitespace-pre-line">
                     {exp.description}
                   </p>
 
                   {exp.technologies && exp.technologies.length > 0 && (
-                    <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="mb-8 grid grid-cols-1 sm:grid-cols-5   gap-4">
                       {exp.technologies.map((tech, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-xs text-neutral-700 md:text-sm dark:text-neutral-300">
                           <span className="text-emerald-500 dark:text-emerald-400">✓</span> {tech}

@@ -1,8 +1,8 @@
 "use client";
-import React, { useId, useMemo } from "react";
+import React, { useId } from "react";
 import { useEffect, useState } from "react";
 import Particles from "@tsparticles/react";
-import type { Container, SingleOrMultiple, Engine } from "@tsparticles/engine";
+import type { Container, Engine } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 import { cn } from "@/lib/utils";
 import { motion, useAnimation } from "motion/react";
@@ -33,23 +33,20 @@ export const SparklesCore = (props: ParticlesProps) => {
   const [init, setInit] = useState(false);
   
   useEffect(() => {
-    // Initialize particles engine - using a different approach
-    const initEngine = async () => {
+    // Proper initialization for tsparticles
+    const initializeParticles = async () => {
       try {
-        // Using the tsParticles instance directly
-        const tsparticles = await import("@tsparticles/engine");
-        const engine = new tsparticles.Engine();
-        await loadSlim(engine);
-        // Store engine in a global or ref if needed
+        // Import the engine and create an instance
+        const { tsParticles } = await import("@tsparticles/engine");
+        // Load slim with the engine
+        await loadSlim(tsParticles);
         setInit(true);
       } catch (error) {
-        console.error("Failed to initialize particles engine:", error);
-        // Fallback - just set init to true
-        setInit(true);
+        console.error("Failed to initialize particles:", error);
       }
     };
     
-    initEngine();
+    initializeParticles();
   }, []);
   
   const controls = useAnimation();
@@ -84,7 +81,6 @@ export const SparklesCore = (props: ParticlesProps) => {
               enable: false,
               zIndex: 1,
             },
-
             fpsLimit: 120,
             interactivity: {
               events: {
@@ -172,7 +168,7 @@ export const SparklesCore = (props: ParticlesProps) => {
               effect: {
                 close: true,
                 options: {},
-                type: {} as SingleOrMultiple<string> | undefined,
+                type: {} as any,
               },
               groups: {},
               move: {

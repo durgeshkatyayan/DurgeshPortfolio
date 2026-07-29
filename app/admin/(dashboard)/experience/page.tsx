@@ -84,7 +84,7 @@ export default function AdminExperiencePage() {
             };
 
             if (editingId) {
-                await axios.put("/api/experience", { ...payload, _id: editingId });
+                await axios.put(`/api/experience/${editingId}`, payload);
                 toast.success("Experience updated!");
             } else {
                 await axios.post("/api/experience", payload);
@@ -101,30 +101,40 @@ export default function AdminExperiencePage() {
 
     const resetForm = () => {
         setEditingId(null);
-        reset({ 
-            order: 0, company: "", position: "", logo: "", description: "", 
-            technologies: "", startDate: "", endDate: "", isCurrent: false 
-        });
-    };
-
-    // Populate form for editing
-    const handleEdit = (exp: any) => {
-        setEditingId(exp._id);
-        
-        // Format dates for HTML date inputs (YYYY-MM-DD)
-        const formatDateForInput = (dateString: string) => {
-            if (!dateString) return "";
-            return new Date(dateString).toISOString().split('T')[0];
-        };
-
         reset({
-            ...exp,
-            technologies: exp.technologies?.join(", ") || "",
-            startDate: formatDateForInput(exp.startDate),
-            endDate: formatDateForInput(exp.endDate),
+            order: 0, company: "", position: "", logo: "", description: "",
+            technologies: "", startDate: "", endDate: "", isCurrent: false
         });
-        window.scrollTo({ top: 0, behavior: "smooth" });
     };
+
+    const formatDateForInput = (date?: string | Date) => {
+        if (!date) return "";
+        const d = new Date(date);
+
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+    };
+   const handleEdit = (exp: any) => {
+    setEditingId(exp._id);
+
+    reset({
+        ...exp,
+        technologies: Array.isArray(exp.technologies)
+            ? exp.technologies.join(", ")
+            : "",
+        startDate: formatDateForInput(exp.startDate),
+        endDate: exp.endDate
+            ? formatDateForInput(exp.endDate)
+            : "",
+    });
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+    });
+};
 
     // Handle Delete
     const handleDelete = async (id: string) => {
@@ -177,7 +187,7 @@ export default function AdminExperiencePage() {
                         </div>
 
                         <div className="p-6 space-y-5">
-                            
+
                             {/* Logo Upload Section */}
                             <div>
                                 <label className="mb-1.5 block text-sm font-semibold text-neutral-700 dark:text-neutral-300">Company Logo</label>
@@ -217,11 +227,11 @@ export default function AdminExperiencePage() {
                                 </div>
                                 <div>
                                     <label className="mb-1.5 block text-sm font-semibold text-neutral-700 dark:text-neutral-300">End Date</label>
-                                    <input 
-                                        type="date" 
-                                        {...register("endDate")} 
+                                    <input
+                                        type="date"
+                                        {...register("endDate")}
                                         disabled={isCurrent}
-                                        className="w-full rounded-xl border border-neutral-300 bg-transparent p-3 text-sm outline-none focus:border-blue-500 dark:border-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed" 
+                                        className="w-full rounded-xl border border-neutral-300 bg-transparent p-3 text-sm outline-none focus:border-blue-500 dark:border-neutral-700 disabled:opacity-50 disabled:cursor-not-allowed"
                                     />
                                 </div>
                             </div>
@@ -297,9 +307,9 @@ export default function AdminExperiencePage() {
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3 line-clamp-2">{exp.description}</p>
-                                        
+
                                         {exp.technologies && exp.technologies.length > 0 && (
                                             <div className="flex flex-wrap gap-1.5 mt-2">
                                                 {exp.technologies.slice(0, 5).map((tech: string, idx: number) => (

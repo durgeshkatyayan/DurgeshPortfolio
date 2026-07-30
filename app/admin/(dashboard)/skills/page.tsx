@@ -64,7 +64,7 @@ export default function AdminSkillsPage() {
         })
       };
 
-      console.log("Submitting data:", submitData);
+      // console.log("Submitting data:", submitData);
 
       if (editingId) {
         await axios.put("/api/skills", { ...submitData, _id: editingId });

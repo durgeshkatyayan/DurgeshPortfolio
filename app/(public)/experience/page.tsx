@@ -97,13 +97,13 @@ export default function ExperiencePage() {
   }
 
   return (
-    <div className="w-full bg-white dark:bg-neutral-950 font-sans" ref={containerRef}>
+    <div className="w-full bg-white dark:bg-neutral-950 font-sans px-3" ref={containerRef}>
       {/* Header Section */}
       <div className="max-w-7xl mx-auto  py-3">
-        <h2 className="text-lg md:text-3xl font-extrabold  text-black dark:text-white ps-2 md:ps-0 max-w-4xl">
+        <h2 className="text-xl md:text-3xl font-extrabold  text-black dark:text-white ps-2 md:ps-0 max-w-4xl">
           My Work Experience
         </h2>
-        <div className="w-[40rem]  top-0 -left-28 relative">
+        <div className="md:w-[40rem] w-[22rem]  top-0 -left-28 relative">
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
           <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
@@ -120,12 +120,12 @@ export default function ExperiencePage() {
           {/* Radial Gradient to prevent sharp edges */}
           <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
         </div>
-        <p className="text-neutral-700 dark:text-neutral-300 ps-2 mt-2 md:ps-0 text-sm md:text-base max-w-2xl ">
+        <p className="text-neutral-700 text-justify dark:text-neutral-300 ps-2 mt-2 md:ps-0 text-sm md:text-base max-w-2xl ">
           My journey is built on curiosity, continuous learning, and creating impactful digital experiences. Explore the milestones that reflect my growth as a Full Stack Developer, from academic achievements to professional projects and real-world solutions.
         </p>
       </div>
 
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
+      <div ref={ref} className="relative max-w-7xl mx-auto md:pb-20 pb-12">
         {experiences.map((exp, index) => {
           const startYear = new Date(exp.startDate).getFullYear().toString();
           const dateOptions: Intl.DateTimeFormatOptions = { month: "short", year: "numeric" };
@@ -138,19 +138,14 @@ export default function ExperiencePage() {
 
           return (
             <div key={index} className="flex justify-start pt-10 md:pt-20 md:gap-10">
-              {/* Left Sticky Column (Year, Circle & Company Logo) */}
               <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-                {/* The Circle */}
                 <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white dark:bg-black flex items-center justify-center">
                   <div className="h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 p-2" />
                 </div>
 
-                {/* The Year */}
                 <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-neutral-500 dark:text-neutral-500">
                   {startYear}
                 </h3>
-
-                {/* Company Logo */}
                 {exp.logo && (
                   <div className="hidden md:block absolute md:left-[120px] lg:left-[200px] w-12 h-12 rounded-full overflow-hidden bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm">
                     <Image
@@ -163,18 +158,16 @@ export default function ExperiencePage() {
                 )}
               </div>
 
-              {/* Right Content Column */}
-              <div className="relative pl-20 pr-4 md:pl-4 w-full">
+              <div className="relative pl-20  md:pl-4 w-full">
                 <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500 dark:text-neutral-500">
                   {startYear}
                 </h3>
 
-                {/* Actual Experience Details */}
                 <div>
-                  <h4 className="text-xl md:text-3xl font-bold text-neutral-900 dark:text-white mb-2 tracking-tight">
+                  <h4 className="text-lg md:text-3xl font-bold text-neutral-900 dark:text-white md:mb-2 tracking-tight">
                     {exp.position}
                   </h4>
-                  <p className="text-sm md:text-base font-medium text-blue-600 dark:text-blue-500 mb-4">
+                  <p className="text-xs md:text-base font-medium text-blue-600 dark:text-blue-500 mb-4">
                     {exp.company} <span className="text-neutral-400 mx-2">•</span> {startMonth} — {endMonth}
                   </p>
 
@@ -183,7 +176,7 @@ export default function ExperiencePage() {
                   </p>
 
                   {exp.technologies && exp.technologies.length > 0 && (
-                    <div className="mb-8 grid grid-cols-1 sm:grid-cols-5   gap-4">
+                    <div className="mb-8 grid grid-cols-2 sm:grid-cols-5 gap-4">
                       {exp.technologies.map((tech, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-xs text-neutral-700 md:text-sm dark:text-neutral-300">
                           <span className="text-emerald-500 dark:text-emerald-400">✓</span> {tech}

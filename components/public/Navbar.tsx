@@ -100,7 +100,7 @@ export default function Navbar() {
             <div className="flex w-full flex-col gap-4 p-4 border-t border-neutral-800">
               <Link href="/contact" className="w-full" onClick={() => setIsMobileMenuOpen(false)}>
                 <NavbarButton variant="primary" className="w-full">
-                  Hire Me
+                  Contact Me
                 </NavbarButton>
               </Link>
             </div>

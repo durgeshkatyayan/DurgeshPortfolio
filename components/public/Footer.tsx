@@ -4,9 +4,9 @@ import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 export default function Footer() {
   return (
     <footer className="border-t border-neutral-800 bg-neutral-950 py-8 relative z-10">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-3 md:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <p className="text-neutral-500 text-sm">
-          &copy; {new Date().getFullYear()} My Portfolio. All rights reserved.
+          &copy; {new Date().getFullYear()} Durgesh Katyayan. All rights reserved.
         </p>
         
         <div className="flex items-center gap-6">

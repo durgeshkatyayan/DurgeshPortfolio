@@ -20,14 +20,14 @@ export default async function SkillsPage() {
 
 
   return (
-    <main className="min-h-screen py-1 px-6 max-w-7xl mx-auto">
-      <div className="text-center mb-16">
-        <h1 className="text-5xl font-bold">Technical Arsenal</h1>
-        <div className="w-[40rem]  top-0 left-24 relative">
+    <main className="min-h-screen py-1 px-3 max-w-7xl mx-auto">
+      <div className="text-center mb-10 md:mb-16">
+        <h1 className="md:text-3xl text-2xl font-bold">Technical Arsenal</h1>
+        <div className="md:w-[40rem] w-[12rem] md:top-0 md:left-24 relative">
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-          <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
-          <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
+          {/* <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" /> */}
+          {/* <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" /> */}
           <SparklesCore
             background="transparent"
             minSize={0.4}
@@ -40,19 +40,18 @@ export default async function SkillsPage() {
           {/* Radial Gradient to prevent sharp edges */}
           <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
         </div>
-        <p className="text-neutral-400 max-w-2xl mx-auto">
+        <p className="text-neutral-400 max-w-2xl text-sm mt-1 md:text-base mx-auto">
           The frameworks, languages, and tools I use to build scalable digital products.
         </p>
       </div>
 
-
-      <div className="space-y-16">
+      <div className="space-y-10">
         {Object.keys(groupedSkills).map((category) => (
           <section key={category}>
-            <h2 className="text-2xl font-bold mb-6 border-b border-neutral-800 pb-2 inline-block">
+            <h2 className="md:text-2xl text-xl font-bold mb-6 border-b border-neutral-800 pb-2 inline-block">
               {category}
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            <div className="grid grid-cols-2 px-1 md:grid-cols-4 lg:grid-cols-6 gap-6">
               {groupedSkills[category].map((skill) => (
                 <div
                   key={typeof skill._id === "string" ? skill._id : skill._id?.toString() ?? `${skill.name}-${skill.category}`}

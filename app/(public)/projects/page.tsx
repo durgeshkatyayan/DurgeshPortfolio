@@ -59,15 +59,15 @@ export default function ProjectsPage() {
   return (
     <main className="min-h-screen bg-neutral-950 text-white py-2 px-0 max-w-7xl mx-auto">
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">My Projects</h1>
-        <div className="w-[10rem] -top-1 left-66  relative">
+        <h1 className="text-4xl font-bold md:mb-1 mb-1">My Projects</h1>
+        <div className="w-[10rem] md:left-76 -left-5 absolute">
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
           <div className="absolute inset-x-40 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
           <div className="absolute inset-x-40 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
           {/* <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div> */}
         </div>
-        <p className="text-neutral-400 max-w-2xl mx-auto">A collection of my latest work, side projects, and open-source contributions.</p>
+        <p className="text-neutral-400 max-w-2xl mx-auto mt-2">A collection of my latest work, side projects, and open-source contributions.</p>
       </div>
       
 
@@ -124,7 +124,7 @@ export default function ProjectsPage() {
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
                   className="group flex flex-col w-64 shadow-md shadow- bg-neutral-900/40 backdrop-blur-sm rounded-3xl border border-neutral-800/60 overflow-hidden hover:bg-neutral-900/80 hover:border-neutral-500 transition-all duration-500  hover:shadow-2xl hover:-translate-y-2"
                 >
-                  {/* Image Header (Clickable) */}
+                 
                   <Link href={`/projects/${project._id}`} className="relative aspect-video w-full overflow-hidden block bg-neutral-950 shrink-0 p-.5">
                     <div className="relative w-full h-full overflow-hidden border border-neutral-800/50 bg-neutral-900/50">
                       <img
@@ -138,7 +138,7 @@ export default function ProjectsPage() {
                     <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                   </Link>
 
-                  {/* Card Body */}
+                 
                   <div className="p-3 flex flex-col grow">
                     <Link href={`/projects/${project._id}`} className="inline-block mb-1">
                       <h3 className="text-xl font-extrabold text-white group-hover:text-blue-400 transition-colors duration-300">

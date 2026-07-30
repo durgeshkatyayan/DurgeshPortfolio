@@ -73,16 +73,13 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="space-y-8 pb-20">
+    <div className="space-y-8 pb-12 px-3 md:px-0">
       <section className="">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 border border-neutral-800 text-sm text-neutral-300 mb-6 shadow-sm">
           <User size={16} className="text-blue-500" />
           <span>About Me</span>
         </div>
 
-        {/* <h1 className="text-4xl md:text-3xl font-extrabold tracking-tight mb-8 text-white">
-          Get to know me.
-        </h1> */}
         <div className="w-[10rem] -top-5 -left-20 relative">
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
@@ -124,14 +121,13 @@ export default async function HomePage() {
               )}
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center justify-between md:justify-normal gap-4 pt-2">
               {about.resumeUrl && (
                 <a
                   href={about.resumeUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-5 py-2.5 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition flex items-center gap-2 shadow-lg"
+                  className="md:px-5 px-3 py-2 md:py-2.5 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition flex items-center gap-2 shadow-lg"
                 >
                   <Download size={18} /> Resume
                 </a>
@@ -156,14 +152,14 @@ export default async function HomePage() {
         )}
       </section>
 
-      {/* 2. STATISTICS SECTION */}
+     {/* 2. STATISTICS SECTION */}
       {statistics && statistics.length > 0 && (
         <section className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {statistics.map((stat: any) => (
             <AnimatedCounter key={stat._id.toString()} value={stat.value} suffix={stat.suffix} label={stat.label} />
           ))}
         </section>
-      )}
+      )} 
 
       {/* 3. EDUCATION SECTION */}
       {educations && educations.length > 0 && (
@@ -175,34 +171,34 @@ export default async function HomePage() {
             <h2 className="text-2xl f text-white tracking-tight">Education</h2>
           </div>
 
-          <div className="relative border-l border-neutral-800 ml-6 md:ml-8 pl-8 md:pl-12 space-y-10">
+          <div className="relative border-l border-neutral-800 ml-4  md:ml-8 pl-4 md:pl-12 space-y-10">
 
             {educations.map((edu) => (
               <div key={edu._id.toString()} className="relative group">
 
-                
-                <div className="absolute -left-[41px] md:-left-[57px] top-1.5 flex items-center justify-center">
+
+                <div className="absolute -left-[26px] md:-left-[57px] top-1.5 flex items-center justify-center">
                   <span className="w-4 h-4 rounded-full bg-neutral-950 border-2 border-neutral-600 group-hover:border-emerald-500 transition-colors duration-500 relative z-10" />
                   <span className="absolute w-4 h-4 rounded-full bg-emerald-500/0 group-hover:bg-emerald-500/40 blur-md transition-all duration-500" />
                 </div>
 
-                <div className="relative overflow-hidden bg-gradient-to-br from-neutral-900/50 to-neutral-900/10 backdrop-blur-md border border-neutral-800/60 p-6 sm:p-8 rounded-[24px] hover:bg-neutral-900/80 transition-all duration-500 shadow-sm group-hover:shadow-[0_0_30px_rgba(16,185,129,0.05)] group-hover:border-neutral-700">
+                <div className="relative overflow-hidden bg-gradient-to-br from-neutral-900/50 to-neutral-900/10 backdrop-blur-md border border-neutral-800/60 p-4 md:p-8 rounded-[24px] hover:bg-neutral-900/80 transition-all duration-500 shadow-sm group-hover:shadow-[0_0_30px_rgba(16,185,129,0.05)] group-hover:border-neutral-700">
                   <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-emerald-500/0 to-transparent group-hover:via-emerald-500/50 transition-all duration-700" />
-                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-6">
+                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-1">
                     <BackgroundRippleEffect />
-                    <div className="flex items-start gap-5">
+                    <div className="flex items-start gap-3">
                       {edu.logo && (
-                        <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden bg-white border border-neutral-200 dark:border-neutral-700/50 shrink-0 shadow-inner">
+                        <div className="relative w-10 sm:w-14 h-10 sm:h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden bg-white border border-neutral-200 dark:border-neutral-700/50 shrink-0 shadow-inner">
                           <Image src={edu.logo} alt={edu.college} fill className="object-contain p-2" />
                         </div>
                       )}
 
                       <div className="pt-1">
-                        <h3 className="text-xl md:text-1.5xl font-bold text-white  group-hover:text-emerald-400 transition-colors duration-300">
+                        <h3 className="text-[17px] md:text-xl md:text-1.5xl font-bold text-white  group-hover:text-emerald-400 transition-colors duration-300">
                           {edu.degree}
                         </h3>
 
-                        <div className="flex flex-wrap items-center gap-2 text-sm md:text-sm font-medium">
+                        <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium">
                           <span className="">{edu.college}</span>
                           {edu.university && (
                             <>
@@ -221,15 +217,15 @@ export default async function HomePage() {
                       </div>
                     </div>
 
-                    <div className="shrink-0 mt-1 md:mt-0">
-                      <span className="inline-flex items-center border-neutral-800/80  bg-neutral-950/60 justify-center px-4 py-1.5  text-[11px] font-bold tracking-widest uppercase rounded-full shadow-sm">
+                    <div className="shrink-0  md:mt-0">
+                      <span className="inline-flex items-center border-neutral-800/80  bg-neutral-950/60 justify-center md:px-4 md:*:py-1.5  text-[11px] font-bold tracking-widest uppercase rounded-full shadow-sm">
                         {edu.year}
                       </span>
                     </div>
                   </div>
 
-                  <hr className="border-neutral-800/80 mb-6" />
-                  <div className="space-y-5">
+                  <hr className="border-neutral-800/80 mb-2" />
+                  <div className="space-y-4">
 
                     {edu.grade && (
                       <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-neutral-950/60 border border-neutral-800/80 rounded-xl text-sm text-neutral-400 shadow-inner">

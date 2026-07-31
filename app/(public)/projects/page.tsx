@@ -115,15 +115,16 @@ export default function ProjectsPage() {
                 title={project.title}
                 href={project.liveUrl || project.githubUrl || `/projects/${project._id}`}
                 key={project._id}
+              
               >
                 <motion.div
-                  
                   layout
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
-                  className="group flex flex-col w-64 shadow-md shadow- bg-neutral-900/40 backdrop-blur-sm rounded-3xl border border-neutral-800/60 overflow-hidden hover:bg-neutral-900/80 hover:border-neutral-500 transition-all duration-500  hover:shadow-2xl hover:-translate-y-2"
+                  className="group flex flex-col w-64 shadow-md shadow- bg-neutral-900/40 backdrop-blur-sm rounded-3xl border border-neutral-800/60 overflow-hidden
+                   hover:bg-neutral-900/80 hover:border-neutral-500 transition-all duration-500  hover:shadow-2xl hover:-translate-y-2"
                 >
 
                   <Link href={`/projects/${project._id}`} className="relative aspect-video w-full overflow-hidden block bg-neutral-950 shrink-0 p-.5">
@@ -138,7 +139,6 @@ export default function ProjectsPage() {
                     {/* Overlay Gradient for depth */}
                     <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                   </Link>
-
 
                   <div className="p-3 flex flex-col grow">
                     <Link href={`/projects/${project._id}`} className="inline-block mb-1">

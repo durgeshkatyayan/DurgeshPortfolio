@@ -28,7 +28,7 @@ export default function ProjectsPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
-  const categories = ["All", "Frontend", "API/Backend","Full Stack Development", "Mobile"];
+  const categories = ["All", "Frontend", "API/Backend", "Full Stack Development", "Mobile"];
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -69,7 +69,7 @@ export default function ProjectsPage() {
         </div>
         <p className="text-neutral-400 max-w-2xl mx-auto mt-2">A collection of my latest work, side projects, and open-source contributions.</p>
       </div>
-      
+
 
       {/* Search and Filters */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-10">
@@ -110,13 +110,14 @@ export default function ProjectsPage() {
           ))
         ) : (
           <AnimatePresence>
-            <PinContainer
-              title="NovaSphare"
-              href="https://umca.knsk.me"
-            >
-              {filteredProjects.map((project, idx) => (
+            {filteredProjects.map((project, idx) => (
+              <PinContainer
+                title={project.title}
+                href={project.liveUrl || project.githubUrl || `/projects/${project._id}`}
+                key={project._id}
+              >
                 <motion.div
-                  key={project._id}
+                  
                   layout
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -124,7 +125,7 @@ export default function ProjectsPage() {
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
                   className="group flex flex-col w-64 shadow-md shadow- bg-neutral-900/40 backdrop-blur-sm rounded-3xl border border-neutral-800/60 overflow-hidden hover:bg-neutral-900/80 hover:border-neutral-500 transition-all duration-500  hover:shadow-2xl hover:-translate-y-2"
                 >
-                 
+
                   <Link href={`/projects/${project._id}`} className="relative aspect-video w-full overflow-hidden block bg-neutral-950 shrink-0 p-.5">
                     <div className="relative w-full h-full overflow-hidden border border-neutral-800/50 bg-neutral-900/50">
                       <img
@@ -138,10 +139,10 @@ export default function ProjectsPage() {
                     <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                   </Link>
 
-                 
+
                   <div className="p-3 flex flex-col grow">
                     <Link href={`/projects/${project._id}`} className="inline-block mb-1">
-                      <h3 className="text-xl font-extrabold text-white group-hover:text-blue-400 transition-colors duration-300">
+                      <h3 className="text-lg truncate font-extrabold text-white group-hover:text-blue-400 transition-colors duration-300">
                         {project.title}
                       </h3>
                     </Link>
@@ -203,8 +204,8 @@ export default function ProjectsPage() {
                     </div>
                   </div>
                 </motion.div>
-              ))}
-            </PinContainer>
+              </PinContainer>
+            ))}
           </AnimatePresence>
         )}
       </div>

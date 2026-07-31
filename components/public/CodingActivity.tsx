@@ -12,7 +12,6 @@ export default function CodingAnalytics() {
             </div>
 
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8">
-
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}

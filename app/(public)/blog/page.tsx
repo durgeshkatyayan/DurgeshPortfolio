@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Calendar } from "lucide-react";
 
-export const revalidate = 3600; // ISR: Revalidate every hour
+export const revalidate = 0; // ISR: Revalidate every hour
 
 export default async function BlogListingPage() {
   await connectToDatabase();

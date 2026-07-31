@@ -3,7 +3,7 @@ import { SparklesCore } from "@/components/ui/sparkles";
 import { connectToDatabase } from "@/lib/mongodb";
 import Skill from "@/models/Skill";
 
-export const revalidate = 3600;
+export const revalidate = 0;
 
 export default async function SkillsPage() {
   await connectToDatabase();

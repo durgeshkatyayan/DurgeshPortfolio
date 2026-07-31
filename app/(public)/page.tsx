@@ -13,7 +13,7 @@ import { FaGithub } from "react-icons/fa";
 import Image from "next/image";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-export const revalidate = 3600;
+export const revalidate = 0;
 
 interface IAboutData {
   biography: string;

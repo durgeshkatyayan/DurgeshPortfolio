@@ -127,7 +127,7 @@ export default async function HomePage() {
                   href={about.resumeUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="md:px-5 px-3 py-2 md:py-2.5 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition flex items-center gap-2 shadow-lg"
+                  className="md:px-5 px-3 py-2 md:py-2 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition flex items-center gap-2 shadow-lg"
                 >
                   <Download size={18} /> Resume
                 </a>
@@ -152,14 +152,14 @@ export default async function HomePage() {
         )}
       </section>
 
-     {/* 2. STATISTICS SECTION */}
+      {/* 2. STATISTICS SECTION */}
       {statistics && statistics.length > 0 && (
         <section className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {statistics.map((stat: any) => (
             <AnimatedCounter key={stat._id.toString()} value={stat.value} suffix={stat.suffix} label={stat.label} />
           ))}
         </section>
-      )} 
+      )}
 
       {/* 3. EDUCATION SECTION */}
       {educations && educations.length > 0 && (
@@ -189,7 +189,7 @@ export default async function HomePage() {
                     <div className="flex items-start gap-3">
                       {edu.logo && (
                         <div className="relative w-10 sm:w-14 h-10 sm:h-14 md:w-16 md:h-16 rounded-2xl overflow-hidden bg-white border border-neutral-200 dark:border-neutral-700/50 shrink-0 shadow-inner">
-                          <Image src={edu.logo} alt={edu.college} fill className="object-contain p-2" />
+                          <Image src={edu.logo} alt={edu.college} fill className="object-contain " />
                         </div>
                       )}
 
@@ -218,7 +218,8 @@ export default async function HomePage() {
                     </div>
 
                     <div className="shrink-0  md:mt-0 ">
-                      <span className="inline-flex border p-1 shadow-blue-100 rounded-b-full items-center border-neutral-800/80  bg-neutral-950/60 justify-center md:px-4 md:*:py-1.5  text-[11px] font-bold tracking-widest uppercase rounded-full shadow-sm">
+                      <span className="inline-flex border p-1 shadow-blue-100 rounded-b-full items-center border-neutral-800/80  bg-neutral-950/60 justify-center md:px-4 md:*:py-1.5  
+                      text-[11px] font-bold tracking-widest uppercase rounded-full shadow-sm">
                         {edu.year}
                       </span>
                     </div>
@@ -228,7 +229,8 @@ export default async function HomePage() {
                   <div className="space-y-4">
 
                     {edu.grade && (
-                      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-neutral-950/60 border border-neutral-800/80 rounded-xl text-sm text-neutral-400 shadow-inner">
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-neutral-950/60 border
+                       border-neutral-800/80 rounded-xl text-sm text-neutral-400 shadow-inner">
                         <span className="text-neutral-500 font-medium tracking-wide">Grade:</span>
                         <span className="font-bold text-white">{edu.grade}</span>
                       </div>

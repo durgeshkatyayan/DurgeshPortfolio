@@ -64,7 +64,7 @@ export default function Navbar() {
         </NavBody>
 
         <MobileNav>
-          <MobileNavHeader className="bg-neutral-950 border-b border-neutral-800">
+          <MobileNavHeader className="bg-neutral-950  px-2 border-b border-neutral-800">
             <NavbarLogo />
             <MobileNavToggle
               isOpen={isMobileMenuOpen}
@@ -77,7 +77,7 @@ export default function Navbar() {
             onClose={() => setIsMobileMenuOpen(false)}
             className="bg-neutral-950 border-b border-neutral-800"
           >
-            <div className="flex flex-col gap-2 p-4">
+            <div className="flex flex-col gap-2 px-4">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (

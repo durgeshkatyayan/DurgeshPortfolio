@@ -98,7 +98,7 @@ export default function ProjectsPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8 gap-8">
         {loading ? (
           [1, 2, 3, 4, 5, 6].map((i) => (
             <div key={i} className="animate-pulse bg-neutral-900/50 rounded-3xl border border-neutral-800 p-4">
@@ -123,7 +123,7 @@ export default function ProjectsPage() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
-                  className="group flex flex-col w-64 shadow-md shadow- bg-neutral-900/40 backdrop-blur-sm rounded-3xl border border-neutral-800/60 overflow-hidden
+                  className="group flex flex-col w-72 md:w-64 shadow-md shadow- bg-neutral-900/40 backdrop-blur-sm rounded-3xl border border-neutral-800/60 overflow-hidden
                    hover:bg-neutral-900/80 hover:border-neutral-500 transition-all duration-500  hover:shadow-2xl hover:-translate-y-2"
                 >
 

@@ -75,7 +75,6 @@ export default function AdminExperiencePage() {
     const onSubmit = async (data: ExperienceForm) => {
         setIsSubmitting(true);
         try {
-            // Format data for MongoDB
             const payload = {
                 ...data,
                 // Convert comma-separated string to array
@@ -140,7 +139,7 @@ export default function AdminExperiencePage() {
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure you want to delete this role?")) return;
         try {
-            await axios.delete(`/api/experience?id=${id}`);
+            await axios.delete(`/api/experience/${id}`);
             toast.success("Record deleted successfully!");
             fetchExperiences();
         } catch (error) {
@@ -159,7 +158,6 @@ export default function AdminExperiencePage() {
     return (
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-8 md:py-4 pb-24">
 
-            {/* Page Header */}
             <div className="mb-6 text-center md:text-left">
                 <h1 className="text-2xl font-extrabold tracking-tight text-neutral-900 dark:text-white sm:text-3xl">
                     Work Experience

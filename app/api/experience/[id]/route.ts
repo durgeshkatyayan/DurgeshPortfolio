@@ -7,12 +7,12 @@ import { authOptions } from "@/lib/auth";
 // Update Experience
 export async function PUT(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
     const session = await getServerSession(authOptions);
 
-    if (!session || (session.user as any).role !== "admin") {
+    if (!session || (session.user as any)?.role !== "admin") {
       return NextResponse.json(
         { error: "Unauthorized" },
         { status: 401 }
@@ -21,8 +21,9 @@ export async function PUT(
 
     await connectToDatabase();
 
-    const { id } = await params;
     const body = await req.json();
+
+    const { id } = await params;
 
     const updatedExperience = await Experience.findByIdAndUpdate(
       id,
@@ -40,9 +41,9 @@ export async function PUT(
       );
     }
 
-    return NextResponse.json(updatedExperience, { status: 200 });
+    return NextResponse.json(updatedExperience);
   } catch (error) {
-    console.error(error);
+    console.error("PUT Error:", error);
 
     return NextResponse.json(
       { error: "Failed to update experience" },
@@ -51,44 +52,25 @@ export async function PUT(
   }
 }
 
-// Delete Experience
 export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  try {
-    const session = await getServerSession(authOptions);
+  await connectToDatabase();
 
-    if (!session || (session.user as any).role !== "admin") {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      );
-    }
+  const { id } = await params;
 
-    await connectToDatabase();
+  const deletedExperience = await Experience.findByIdAndDelete(id);
 
-    const { id } = await params;
-
-    const deletedExperience = await Experience.findByIdAndDelete(id);
-
-    if (!deletedExperience) {
-      return NextResponse.json(
-        { error: "Experience not found" },
-        { status: 404 }
-      );
-    }
-
+  if (!deletedExperience) {
     return NextResponse.json(
-      { message: "Experience deleted successfully" },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error(error);
-
-    return NextResponse.json(
-      { error: "Failed to delete experience" },
-      { status: 500 }
+      { error: "Experience not found" },
+      { status: 404 }
     );
   }
+
+  return NextResponse.json(
+    { message: "Experience deleted successfully" },
+    { status: 200 }
+  );
 }

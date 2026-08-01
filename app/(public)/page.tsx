@@ -217,8 +217,8 @@ export default async function HomePage() {
                       </div>
                     </div>
 
-                    <div className="shrink-0  md:mt-0">
-                      <span className="inline-flex items-center border-neutral-800/80  bg-neutral-950/60 justify-center md:px-4 md:*:py-1.5  text-[11px] font-bold tracking-widest uppercase rounded-full shadow-sm">
+                    <div className="shrink-0  md:mt-0 ">
+                      <span className="inline-flex border p-1 shadow-blue-100 rounded-b-full items-center border-neutral-800/80  bg-neutral-950/60 justify-center md:px-4 md:*:py-1.5  text-[11px] font-bold tracking-widest uppercase rounded-full shadow-sm">
                         {edu.year}
                       </span>
                     </div>
@@ -242,7 +242,7 @@ export default async function HomePage() {
 
                     {/* Achievements Section */}
                     {edu.achievements && (
-                      <div className="p-4 sm:p-5 bg-neutral-950/40 rounded-2xl border border-neutral-800/50 mt-4">
+                      <div className="p-4 md:p-5 bg-neutral-950/40 rounded-2xl border border-neutral-800/50">
                         <span className="block text-[11px] font-bold text-neutral-500 uppercase tracking-widest mb-2">
                           Key Achievements
                         </span>

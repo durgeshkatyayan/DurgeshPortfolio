@@ -4,14 +4,19 @@ import Experience from "@/models/Experience";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
+// Force dynamic behavior so Next.js doesn't cache stale GET data
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     await connectToDatabase();
-    // Sort by start date descending
     const experiences = await Experience.find().sort({ startDate: -1 });
     return NextResponse.json(experiences, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch experiences" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch experiences" },
+      { status: 500 }
+    );
   }
 }
 
@@ -28,6 +33,10 @@ export async function POST(req: Request) {
 
     return NextResponse.json(newExperience, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ error: "Failed to add experience" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to add experience" },
+      { status: 500 }
+    );
   }
 }
+

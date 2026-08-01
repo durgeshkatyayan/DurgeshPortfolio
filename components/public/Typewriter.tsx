@@ -19,7 +19,7 @@ export default function Typewriter({ words }: { words: string[] }) {
   if (!words?.length) return null;
 
   return (
-    <div className="relative flex items-center justify-center min-h-[24px]">
+    <div className="relative flex  items-center justify-center min-h-[24px]">
       <AnimatePresence mode="wait">
         <motion.span
           key={words[index]}
@@ -27,7 +27,7 @@ export default function Typewriter({ words }: { words: string[] }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.4 }}
-          className="text-blue-400 font-semibold"
+          className="text-blue-400 font-semibold text-xs sm:text-md"
         >
           {words[index]}
         </motion.span>

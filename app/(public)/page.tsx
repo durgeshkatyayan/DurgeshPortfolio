@@ -171,7 +171,7 @@ export default async function HomePage() {
             <h2 className="text-2xl f text-white tracking-tight">Education</h2>
           </div>
 
-          <div className="relative border-l border-neutral-800 ml-4  md:ml-8 pl-4 md:pl-12 space-y-10">
+          <div className="relative border-l border-neutral-800 ml-4  md:ml-16 pl-4 md:pl-12 space-y-10">
 
             {educations.map((edu) => (
               <div key={edu._id.toString()} className="relative group">

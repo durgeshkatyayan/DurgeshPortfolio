@@ -4,34 +4,28 @@ import Experience from "@/models/Experience";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-// Update Experience
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(req: Request) {
   try {
     const session = await getServerSession(authOptions);
-
-    if (!session || (session.user as any)?.role !== "admin") {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      );
+    if (!session || (session.user as any).role !== "admin") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     await connectToDatabase();
-
     const body = await req.json();
+    const { _id, ...updateData } = body;
 
-    const { id } = await params;
+    if (!_id) {
+      return NextResponse.json(
+        { error: "Experience ID (_id) is required for updates" },
+        { status: 400 }
+      );
+    }
 
     const updatedExperience = await Experience.findByIdAndUpdate(
-      id,
-      body,
-      {
-        new: true,
-        runValidators: true,
-      }
+      _id,
+      { $set: updateData },
+      { new: true, runValidators: true }
     );
 
     if (!updatedExperience) {
@@ -41,10 +35,9 @@ export async function PUT(
       );
     }
 
-    return NextResponse.json(updatedExperience);
+    return NextResponse.json(updatedExperience, { status: 200 });
   } catch (error) {
-    console.error("PUT Error:", error);
-
+    console.error("Update Error:", error);
     return NextResponse.json(
       { error: "Failed to update experience" },
       { status: 500 }

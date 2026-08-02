@@ -1,4 +1,5 @@
 
+import CertificatesSection from "@/components/public/CertificatesSection";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { connectToDatabase } from "@/lib/mongodb";
 import Skill from "@/models/Skill";
@@ -76,6 +77,9 @@ export default async function SkillsPage() {
             </div>
           </section>
         ))}
+      </div>
+      <div>
+        <CertificatesSection />
       </div>
     </main>
   );

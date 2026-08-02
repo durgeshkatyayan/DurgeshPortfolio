@@ -1,14 +1,6 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, type HydratedDocument, type InferSchemaType, type Model } from "mongoose";
 
-export interface ICertificate extends Document {
-  title: string;
-  organization: string;
-  certificateImage: string;
-  url?: string;
-  issueDate: Date;
-}
-
-const CertificateSchema = new Schema<ICertificate>(
+const CertificateSchema = new Schema(
   {
     title: { type: String, required: true },
     organization: { type: String, required: true },
@@ -19,4 +11,9 @@ const CertificateSchema = new Schema<ICertificate>(
   { timestamps: true }
 );
 
-export default mongoose.models.Certificate || mongoose.model<ICertificate>("Certificate", CertificateSchema);
+export type CertificateDocument = HydratedDocument<InferSchemaType<typeof CertificateSchema>>;
+export type CertificateModel = Model<CertificateDocument>;
+
+const Certificate = (mongoose.models.Certificate as CertificateModel) || mongoose.model<CertificateDocument>("Certificate", CertificateSchema);
+
+export default Certificate;

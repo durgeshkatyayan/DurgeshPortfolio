@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { GlowingEffect } from "../ui/glowing-effect";
 
 // Helper component to render the tech icons
 const TechIcon = ({ name }: { name: string }) => {
@@ -19,7 +20,6 @@ const TechIcon = ({ name }: { name: string }) => {
     const icon = iconMap[name];
 
     if (!icon) {
-        // Fallback for icons not in devicon (like OpenAI or Expo) - renders a sleek dark placeholder
         return (
             <div className="w-6 h-6 rounded-md bg-neutral-800 border border-neutral-700 flex items-center justify-center text-[10px] font-bold text-white uppercase tracking-tighter">
                 {name.slice(0, 2)}
@@ -58,7 +58,7 @@ export default function WhatIDoSection() {
         },
         {
             title: "AI Automation & Integration",
-            icons: ["ai", "nextjs", "js", "js", "react"], // 'ai' uses fallback badge
+            icons: ["ai", "nextjs", "js", "js", "react"],
             items: [
                 "Integrating OpenAI GPT-4o & Anthropic Claude APIs into web applications",
                 "Building n8n & Make.com automation workflows to eliminate repetitive tasks",
@@ -85,7 +85,7 @@ export default function WhatIDoSection() {
         },
         {
             title: "Mobile App Development",
-            icons: ["react", "ex"], // 'ex' for Expo fallback badge
+            icons: ["react", "ex"],
             items: [
                 "Cross-platform iOS & Android apps with React Native and Expo",
                 "Native device APIs: camera, push notifications, offline storage",
@@ -96,9 +96,8 @@ export default function WhatIDoSection() {
 
     return (
         <section className="w-full bg-[#0a0a0a] py-8">
-            <div className="max-w-7xl mx-auto px-3 md:*:px-0">
-
-                <h2 className="md:text-3xl text-xl font-extrabold text-white tracking-tight mb-6 ">
+            <div className="max-w-7xl mx-auto ">
+                <h2 className="md:text-3xl text-xl font-extrabold text-white tracking-tight mb-6">
                     What I'm doing
                 </h2>
 
@@ -106,32 +105,46 @@ export default function WhatIDoSection() {
                     {services.map((service, index) => (
                         <div
                             key={index}
-                            className="group bg-[#111113] rounded-[24px] border border-neutral-800/60 p-6 sm:p-8 hover:border-neutral-700 hover:bg-[#151518] transition-all duration-300 shadow-sm hover:shadow-xl"
+                            className="relative rounded-[24px]  bg-transparent"
                         >
-                            <h3 className="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
-                                {service.title}
-                            </h3>
+                            {/* GlowingEffect applied to each card */}
+                            <GlowingEffect
+                                spread={40}
+                                glow={true}
+                                disabled={false}
+                                proximity={64}
+                                inactiveZone={0.01}
+                                blur={0}
+                                variant="default"
+                                borderWidth={1}
+                            />
+                            
+                            {/* Card content - preserves your exact styling */}
+                            <div className="group bg-[#111113] rounded-[24px] border border-neutral-800/60 p-4 md:p-8 hover:border-neutral-700 hover:bg-[#151518] transition-all duration-300 shadow-sm hover:shadow-xl relative z-10">
+                                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                                    {service.title}
+                                </h3>
 
-                            <div className="flex items-center gap-3 mb-6">
-                                {service.icons.map((iconName, idx) => (
-                                    <TechIcon key={idx} name={iconName} />
-                                ))}
+                                <div className="flex items-center gap-3 mb-2 md:mb-4">
+                                    {service.icons.map((iconName, idx) => (
+                                        <TechIcon key={idx} name={iconName} />
+                                    ))}
+                                </div>
+
+                                <ul className="md:space-y-2 space-y-1 ">
+                                    {service.items.map((item, idx) => (
+                                        <li key={idx} className="flex items-start gap-3">
+                                            <div className="mt-[6px] w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
+                                            <span className="text-neutral-400 text-sm  leading-relaxed">
+                                                {item}
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
-
-                            <ul className="space-y-2">
-                                {service.items.map((item, idx) => (
-                                    <li key={idx} className="flex items-start gap-3">
-                                        <div className="mt-[6px] w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
-                                        <span className="text-neutral-400 text-sm leading-relaxed">
-                                            {item}
-                                        </span>
-                                    </li>
-                                ))}
-                            </ul>
                         </div>
                     ))}
                 </div>
-
             </div>
         </section>
     );

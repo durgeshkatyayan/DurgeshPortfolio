@@ -13,6 +13,7 @@ import { FaGithub } from "react-icons/fa";
 import Image from "next/image";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import WhatIDo from "@/components/public/WhatIDo";
 export const revalidate = 0;
 
 interface IAboutData {
@@ -313,7 +314,12 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
       <CodingAnalytics />
+
+      <section>
+        <WhatIDo />
+      </section>
 
     </div>
   );

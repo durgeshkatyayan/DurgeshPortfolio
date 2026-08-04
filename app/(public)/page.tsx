@@ -14,6 +14,7 @@ import Image from "next/image";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import WhatIDo from "@/components/public/WhatIDo";
+import { PointerHighlight } from "@/components/ui/pointer-highlight";
 export const revalidate = 0;
 
 interface IAboutData {
@@ -195,10 +196,15 @@ export default async function HomePage() {
                       )}
 
                       <div className="pt-1">
-                        <h3 className="text-[17px] md:text-xl md:text-1.5xl font-bold text-white  group-hover:text-emerald-400 transition-colors duration-300">
-                          {edu.degree}
-                        </h3>
-
+                        <PointerHighlight
+                          rectangleClassName="bg-neutral-200 dark:bg-neutral-700 border-neutral-300 dark:border-neutral-600 leading-loose"
+                          pointerClassName="text-yellow-500 h-3 w-3"
+                          containerClassName="inline-block mr-1"
+                        >
+                          <h3 className="text-[17px] relative z-10  md:text-xl md:text-1.5xl font-bold text-white  group-hover:text-emerald-400 transition-colors duration-300">
+                            {edu.degree}
+                          </h3>
+                        </PointerHighlight>
                         <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm font-medium">
                           <span className="">{edu.college}</span>
                           {edu.university && (

@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 import { PinContainer } from "@/components/ui/3d-pin";
+import { PointerHighlight } from "@/components/ui/pointer-highlight";
 
 interface Project {
   _id: string;
@@ -44,7 +45,39 @@ export default function ProjectsPage() {
     };
     fetchProjects();
   }, []);
-
+  const highlightThemes = [
+    {
+      rectangleClassName:
+        "bg-blue-100 dark:bg-blue-900 border-blue-300 dark:border-blue-700",
+      pointerClassName: "text-blue-500 h-3 w-3",
+    },
+    {
+      rectangleClassName:
+        "bg-green-100 dark:bg-green-900 border-green-300 dark:border-green-700",
+      pointerClassName: "text-green-500 h-3 w-3",
+    },
+    {
+      rectangleClassName:
+        "bg-purple-100 dark:bg-purple-900 border-purple-300 dark:border-purple-700",
+      pointerClassName: "text-purple-500 h-3 w-3",
+    },
+    {
+      rectangleClassName:
+        "bg-yellow-100 dark:bg-yellow-900 border-yellow-300 dark:border-yellow-700",
+      pointerClassName: "text-yellow-500 h-3 w-3",
+    },
+    {
+      rectangleClassName:
+        "bg-pink-100 dark:bg-pink-900 border-pink-300 dark:border-pink-700",
+      pointerClassName: "text-pink-500 h-3 w-3",
+    },
+    {
+      rectangleClassName:
+        "bg-orange-100 dark:bg-orange-900 border-orange-300 dark:border-orange-700",
+      pointerClassName: "text-orange-500 h-3 w-3",
+    },
+  ];
+  
   useEffect(() => {
     let result = projects;
     if (activeCategory !== "All") {
@@ -110,12 +143,14 @@ export default function ProjectsPage() {
           ))
         ) : (
           <AnimatePresence>
-            {filteredProjects.map((project, idx) => (
+            {filteredProjects.map((project, idx) =>{
+               const theme = highlightThemes[idx % highlightThemes.length];
+             return(
               <PinContainer
                 title={project.title}
                 href={project.liveUrl || project.githubUrl || `/projects/${project._id}`}
                 key={project._id}
-              
+
               >
                 <motion.div
                   layout
@@ -142,9 +177,15 @@ export default function ProjectsPage() {
 
                   <div className="p-3 flex flex-col grow">
                     <Link href={`/projects/${project._id}`} className="inline-block mb-1">
-                      <h3 className="text-lg truncate font-extrabold text-white group-hover:text-blue-400 transition-colors duration-300">
-                        {project.title}
-                      </h3>
+                      <PointerHighlight
+                        rectangleClassName={`${theme.rectangleClassName} leading-loose`}
+                        pointerClassName={theme.pointerClassName}
+                        containerClassName="inline-block mr-1"
+                      >
+                        <h3 className="text-lg relative z-10 truncate font-extrabold text-white group-hover:text-blue-400 transition-colors duration-300">
+                          {project.title}
+                        </h3>
+                      </PointerHighlight>
                     </Link>
 
                     <p className="text-neutral-400 text-xs line-clamp-2 mb-4 leading-relaxed">
@@ -205,7 +246,9 @@ export default function ProjectsPage() {
                   </div>
                 </motion.div>
               </PinContainer>
-            ))}
+            )
+            })}
+
           </AnimatePresence>
         )}
       </div>

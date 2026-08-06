@@ -5,7 +5,8 @@ import Blog from "@/models/Blog";
 import Message from "@/models/Message";
 import Booking from "@/models/Booking";
 import Music from "@/models/Music";
-import Skill from "@/models/Skill"; // If you have a Skill model
+import Skill from "@/models/Skill";
+import Analytics from "@/models/Analytics"; // Import the new tracker model
 
 export async function GET() {
   try {
@@ -20,6 +21,8 @@ export async function GET() {
       songsCount,
       skillsModelCount,
       recentProjects,
+      totalPageViews, // NEW: Count total page visits
+      uniqueVisitors, // NEW: Count unique visitors
     ] = await Promise.all([
       Project.countDocuments(),
       Blog.countDocuments(),
@@ -28,6 +31,8 @@ export async function GET() {
       Music.countDocuments().catch(() => 0),
       Skill.countDocuments().catch(() => 0),
       Project.find().sort({ createdAt: -1 }).limit(3).lean(),
+      Analytics.countDocuments().catch(() => 0),
+      Analytics.distinct("visitorId").then((ids) => ids.length).catch(() => 0),
     ]);
 
     // 2. Extract distinct technologies / languages used across projects
@@ -39,6 +44,7 @@ export async function GET() {
       allProjectsTech.length
     );
 
+    // 3. Return everything to your dashboard
     return NextResponse.json({
       projects: projectsCount,
       blogs: blogsCount,
@@ -47,6 +53,11 @@ export async function GET() {
       songs: songsCount,
       technologies: totalTechLanguagesCount,
       recentProjects,
+      // Pass the new data to your admin UI
+      visitorStats: {
+        totalViews: totalPageViews,
+        uniqueVisitors: uniqueVisitors,
+      }
     });
   } catch (error: any) {
     console.error("Analytics Error:", error);

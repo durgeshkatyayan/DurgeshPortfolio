@@ -44,9 +44,8 @@ export default function AdminLayoutClient({
 
       {/* Sidebar Drawer */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 border-r border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-950 flex flex-col flex-shrink-0 transform transition-transform duration-300 ease-in-out md:static md:translate-x-0 ${
-          isMobileOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed inset-y-0 left-0 z-50 w-64 border-r border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-950 flex flex-col flex-shrink-0 transform transition-transform duration-300 ease-in-out md:static md:translate-x-0 ${isMobileOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="p-6 border-b border-neutral-300 dark:border-neutral-800 flex items-center justify-between">
           <h2 className="text-xl font-bold tracking-tight text-blue-600 dark:text-blue-500 truncate">
@@ -135,6 +134,13 @@ export default function AdminLayoutClient({
             <FileText size={20} /> Blogs
           </Link>
           <Link
+            href="/admin/analytics"
+            onClick={closeMobileMenu}
+            className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition"
+          >
+            <FileText size={20} /> Analytics
+          </Link>
+          <Link
             href="/admin/music"
             onClick={closeMobileMenu}
             className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition"
@@ -150,7 +156,6 @@ export default function AdminLayoutClient({
 
       {/* Main Content Area Container */}
       <div className="flex-1 flex flex-col h-full overflow-hidden w-full">
-        {/* Top Navbar */}
         <header className="h-16 flex-shrink-0 border-b border-neutral-300 dark:border-neutral-800 bg-white dark:bg-neutral-950 flex items-center justify-between px-4 sm:px-8">
           <div className="flex items-center gap-3">
             <button
@@ -174,7 +179,6 @@ export default function AdminLayoutClient({
           </Link>
         </header>
 
-        {/* Scrollable Page Content */}
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 relative">
           {children}
         </main>

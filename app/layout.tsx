@@ -1,3 +1,4 @@
+import AnalyticsTracker from "@/components/public/AnalyticsTracker";
 import "./globals.css";
 import type { Metadata } from "next";
 
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-neutral-950 text-white antialiased">
+        <AnalyticsTracker />
         {children}
       </body>
     </html>

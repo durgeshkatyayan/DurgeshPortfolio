@@ -1,5 +1,6 @@
 
 import CertificatesSection from "@/components/public/CertificatesSection";
+// import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { connectToDatabase } from "@/lib/mongodb";
 import Skill from "@/models/Skill";
@@ -52,16 +53,19 @@ export default async function SkillsPage() {
             <h2 className="md:text-2xl text-xl font-bold mb-6 border-b border-neutral-800 pb-2 inline-block">
               {category}
             </h2>
+            
             <div className="grid grid-cols-2 px-1 md:grid-cols-4 lg:grid-cols-6 gap-6">
               {groupedSkills[category].map((skill) => (
                 <div
                   key={typeof skill._id === "string" ? skill._id : skill._id?.toString() ?? `${skill.name}-${skill.category}`}
                   className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl flex flex-col items-center justify-center hover:border-neutral-600 transition group"
                 >
+                  
                   <div
                     className="w-12 h-12 mb-4 text-neutral-400 group-hover:text-white transition"
                     dangerouslySetInnerHTML={{ __html: skill.icon }}
                   />
+                  
                   <h3 className="font-semibold text-sm text-center">{skill.name}</h3>
                   <div className="w-full bg-neutral-950 h-1.5 rounded-full mt-3 overflow-hidden">
                     <div

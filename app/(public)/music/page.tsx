@@ -16,6 +16,7 @@ import {
   Radio,
   Sparkles,
 } from "lucide-react";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
 
 const CATEGORIES = ["All", "Turkish", "Indian", "English", "Russian", "Bhojpuri", "Bhakti", "Other"];
 
@@ -203,12 +204,12 @@ export default function MusicPage() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-5 py-2.5 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all duration-300 ${
-                  isActive
+                className={`px-5 py-2.5 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all duration-300 ${isActive
                     ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30 border border-blue-400/40 scale-105"
                     : "bg-neutral-900/80 text-neutral-400 hover:bg-neutral-800 hover:text-slate-200 border border-neutral-800/80"
-                }`}
+                  }`}
               >
+               
                 {cat}
               </button>
             );
@@ -255,6 +256,7 @@ export default function MusicPage() {
             {/* Song Meta & Playback Controls */}
             <div className="flex-1 w-full space-y-5">
               <div className="space-y-1 text-center md:text-left">
+
                 <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20">
                   {currentSong.genre || currentSong.genre || "Unknown Genre"}
                 </span>
@@ -356,12 +358,22 @@ export default function MusicPage() {
                 <div
                   key={song._id as any}
                   onClick={() => playSong(index)}
-                  className={`group relative flex items-center gap-4 p-3.5 rounded-2xl cursor-pointer border transition-all duration-300 ${
-                    isCurrent
+                  className={`group relative flex items-center gap-4 p-3.5 rounded-2xl cursor-pointer border transition-all duration-300 ${isCurrent
                       ? "bg-blue-600/10 border-blue-500/40 text-white shadow-lg shadow-blue-500/5"
                       : "bg-neutral-900/60 border-neutral-800/80 hover:bg-neutral-800/60 hover:border-neutral-700/80 text-neutral-300"
-                  }`}
+                    }`}
                 >
+
+                  <GlowingEffect
+                    spread={40}
+                    glow={true}
+                    disabled={false}
+                    proximity={64}
+                    inactiveZone={0.01}
+                    blur={0}
+                    variant="default"
+                    borderWidth={1}
+                  />
                   <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 border border-white/5">
                     <Image
                       src={song.coverImage || "/placeholder.png"}

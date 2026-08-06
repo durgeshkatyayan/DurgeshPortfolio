@@ -5,6 +5,7 @@ import axios from "axios";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Award, ExternalLink, Calendar, Building2, ShieldCheck, ArrowUpRight } from "lucide-react";
+import { GlowingEffect } from "../ui/glowing-effect";
 
 // Interface matching your Mongoose Schema
 interface Certificate {
@@ -87,7 +88,16 @@ export default function CertificatesSection() {
                     transition={{ duration: 0.4, delay: idx * 0.1 }}
                     className="group flex flex-col sm:flex-row sm:items-center gap-5 p-5 bg-neutral-900/40 backdrop-blur-sm rounded-2xl border border-neutral-800/60 hover:bg-neutral-900/80 hover:border-neutral-700 transition-all duration-300"
                   >
-                    
+                     <GlowingEffect
+                                spread={40}
+                                glow={true}
+                                disabled={false}
+                                proximity={64}
+                                inactiveZone={0.01}
+                                blur={0}
+                                variant="default"
+                                borderWidth={1}
+                            />
                     {/* Compact Logo Area */}
                     <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-xl bg-white border border-neutral-200 dark:border-neutral-700 overflow-hidden shrink-0 shadow-inner flex items-center justify-center">
                       {cert.certificateImage ? (
